@@ -1,0 +1,80 @@
+digraph PYWEB {
+lab[color=blue,font=bold];
+web[color=blue];
+iframe[color=blue];
+gui[color=blue];
+tools[color=blue];
+doc[color=blue];
+mapper[color=blue];
+py3[color=blue];
+reloader[color=blue];
+clihttp[color=blue];
+tkinter[color=red];
+"tkinter.scrolledtext"[color=red];
+lab -> {
+	os
+	json
+	random
+    doc
+    py3
+    iframe
+    web
+    tools
+};
+gui -> {
+	sys
+	threading
+    tkinter
+    "tkinter.scrolledtext"
+    reloader
+	lab
+};
+clihttp -> {
+	"http.client"
+	iframe
+	random
+	ssl
+    base64
+    hashlib
+};
+doc -> {
+	inspect
+	os
+	json
+};
+iframe -> {
+    mapper
+    base64
+    hashlib
+};
+py3 -> {
+	re
+	os
+	sys
+	ssl
+	json
+	iframe
+	threading
+	"http.server"
+	socketserver
+	"urllib.parse"
+	base64
+    web
+};
+reloader -> {
+	"os.path"
+	importlib
+	importlib
+	threading
+	sys
+	time
+	lab
+};
+web -> {
+	re
+	inspect
+	json
+    doc
+    iframe
+};
+}

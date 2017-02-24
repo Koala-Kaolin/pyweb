@@ -1,0 +1,75 @@
+
+body {
+    background-color: black;
+    color: white;
+}
+
+input[type="file"],
+input[type="number"],
+input[type="text"]
+ {
+	color: black;
+	background-color: gray;
+}
+
+input:invalid {
+    background-color: #f88;
+}
+
+input:valid {
+    background-color: #8f8;
+}
+
+textarea {
+    display: block;
+    flex-grow: 1;
+    color: white;
+    background-color: #55a;
+    margin-left: 3em;
+}
+
+.url {
+    color: red !important;
+    
+}
+input.url {
+    background: none;
+    background-color: #333333;
+    border: none;
+}
+.param {
+    margin-top: 1em;    
+}
+
+.test {
+    padding-bottom: 2em;
+    display: none;
+    
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+.formMethod {
+    width: 4em;
+}
+
+.method {
+    color: yellow;
+    text-decoration: underline;
+    width: 100%;
+}
+
+.command {
+
+}
+
+.url {
+    color: cyan;
+}
+
+form {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    position: block;
+}
+

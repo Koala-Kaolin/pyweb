@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="25cm" height="10cm" viewBox="99 39 883 399" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="100" y="180" width="203.55" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="100" y="180" width="203.55" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="201.775" y="201.9">
+      <tspan x="201.775" y="201.9">method /url/{pattern}</tspan>
+      <tspan x="201.775" y="217.9">+</tspan>
+      <tspan x="201.775" y="233.9">action(headers, parameters)</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="130.5" y1="204.9" x2="273.05" y2="204.9"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="196.4" y1="220.9" x2="207.15" y2="220.9"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="110" y1="236.9" x2="293.55" y2="236.9"/>
+  </g>
+  <g>
+    <rect style="fill: #7272d7" x="100" y="40" width="90.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="100" y="40" width="90.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="145.2" y="61.9">
+      <tspan x="145.2" y="61.9">method uri</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="110" y1="64.9" x2="180.4" y2="64.9"/>
+  </g>
+  <g>
+    <rect style="fill: #ffa500" x="400" y="200" width="203.55" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="400" y="200" width="203.55" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="501.775" y="221.9">
+      <tspan x="501.775" y="221.9">action(headers, parameters)</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="410" y1="224.9" x2="593.55" y2="224.9"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="183.293" y1="163.037" x2="152.085" y2="76.9858"/>
+    <polygon style="fill: #000000" points="178.592,164.741 188.748,178.078 187.993,161.332 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="178.592,164.741 188.748,178.078 187.993,161.332 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="220" y="120">reception</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="382.009" y1="216.403" x2="304.543" y2="215.37"/>
+    <polygon style="fill: #000000" points="381.942,221.403 398.007,216.616 382.075,211.404 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="381.942,221.403 398.007,216.616 382.075,211.404 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="340" y="200">find</text>
+  </g>
+  <g>
+    <rect style="fill: #ffa500" x="680" y="320" width="300.3" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680" y="320" width="300.3" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="830.15" y="341.9">
+      <tspan x="830.15" y="341.9">postmessage(context, True/False/message)</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="690" y1="344.9" x2="970.3" y2="344.9"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="506.624" y1="302.029" x2="502.871" y2="236.999"/>
+    <polygon style="fill: #000000" points="501.632,302.317 507.546,318.003 511.616,301.741 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="501.632,302.317 507.546,318.003 511.616,301.741 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="560" y="270">websocket</text>
+  </g>
+  <g>
+    <rect style="fill: #c2e77a" x="300" y="100" width="215.65" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="300" y="100" width="215.65" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="407.825" y="121.9">
+      <tspan x="407.825" y="121.9">@http(method, /url/{pattern})</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="310" y1="124.9" x2="505.65" y2="124.9"/>
+  </g>
+  <g>
+    <rect style="fill: #c2e77a" x="520" y="400" width="196.35" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="520" y="400" width="196.35" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="618.175" y="421.9">
+      <tspan x="618.175" y="421.9">@websocket(postmessage)</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="530" y1="424.9" x2="706.35" y2="424.9"/>
+  </g>
+  <g>
+    <rect style="fill: #7272d7" x="740" y="200" width="115.45" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="740" y="200" width="115.45" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="797.725" y="221.9">
+      <tspan x="797.725" y="221.9">HTTP response</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="750" y1="224.9" x2="845.45" y2="224.9"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="722.019" y1="218" x2="604.537" y2="218"/>
+    <polygon style="fill: #000000" points="722.019,223 738.019,218 722.019,213 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="722.019,223 738.019,218 722.019,213 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="660" y="200">execute</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="460" y="320" width="97.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="460" y="320" width="97.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="508.7" y="341.9">
+      <tspan x="508.7" y="341.9">Reader loop</tspan>
+    </text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="470" y1="344.9" x2="547.4" y2="344.9"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="662.078" y1="338" x2="558.397" y2="338"/>
+    <polygon style="fill: #000000" points="662.078,343 678.078,338 662.078,333 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="662.078,343 678.078,338 662.078,333 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="610.044" y="320">read</text>
+  </g>
+</svg>

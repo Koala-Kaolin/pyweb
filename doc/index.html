@@ -1,0 +1,187 @@
+<html>
+    <head>
+		<meta charset="utf-8">
+        <title>doc</title>
+        <script src="index_doc.js"></script>
+        <script>
+            function start() {
+                let liste = document.querySelector("#liste");
+				for (let smod of Object.keys(docs)) {
+                    liste.innerHTML += ("&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"lien\" onclick=\"montre('"+smod+"');\">"+smod+"</span>"); 
+                }
+            }
+            function montre(mod) {
+                let doc = document.querySelector("#doc");
+                document.title = 'doc - '+mod;
+                doc.innerHTML = tohtml(docs[mod]);
+            }
+            let tohtm = {};
+            tohtm[""] = function (obj) {
+                let res = '<div>';
+                res += doc(obj);
+                res += obj.name+':'+obj.type;
+                res += '</div>';
+                return res;
+            };
+            tohtm["class"] = function (obj) {
+                let res = '<div class="'+obj.type+'">';
+                res += doc(obj)+'<div class="cont">';
+				if (obj.members) {
+					for (let k of Object.keys(obj.members).sort()) {
+						if (obj.members[k].type == "module") {
+							res += tohtml(obj.members[k]);
+						}
+					}
+					for (let k of Object.keys(obj.members).sort()) {
+						if (obj.members[k].type != "module") {
+							res += tohtml(obj.members[k]);
+						}
+					}
+				}
+                res += '</div></div>';
+                return res;
+            };
+            tohtm.module = function (obj) {
+                let res = '<div class="'+obj.type+'">';
+                res += doc2(obj)+'<div class="cont">';
+				if (obj.members) {
+					for (let k of Object.keys(obj.members).sort()) {
+						if (obj.members[k].type == "module") {
+							res += tohtml(obj.members[k]);
+						}
+					}
+					for (let k of Object.keys(obj.members).sort()) {
+						if (obj.members[k].type != "module") {
+							res += tohtml(obj.members[k]);
+						}
+					}
+				}
+                res += '</div></div>';
+                return res;                
+            };
+            tohtm.object = function (obj) {
+                let res = '<div class="'+obj.type+'">';
+                res += obj.name +': ' + obj["class"];
+                res += '</div>';
+                return res;                
+            };
+            tohtm["function"] = function (obj) {
+                let res = '<div class="'+obj.type+'">';
+                res += doc(obj);
+                for (let par of obj.parameters) {
+                    let cle = par.name;
+                    let annot = "";
+                    let valeur = "";
+                    let extra = "";
+                    if (par.value) {
+                        valeur = "="+JSON.stringify(par.value
+                            .replace("<","&lt;").replace(">","&gt;"));
+                    }
+                    if (par.annotation) {
+                        annot = ":"+par.annotation;
+                    }
+                    if (par.doc) {
+                        extra = "&nbsp;&nbsp;&nbsp;&nbsp;"+par.doc;
+                    }
+                    res += "<param1>"+cle+annot+valeur+extra+"</param1>";
+                }
+                res += '</div>';
+                return res;
+            };
+            function doc(obj) {
+                let annot = "";
+                if (obj["return"] && obj["return"].annotation) {
+                    annot = ":"+obj["return"].annotation;
+                }
+				let herit = obj.herit;
+				if (herit) {
+					herit = JSON.stringify(herit);
+				} else {
+					herit = "";
+				}
+                let retur = "";
+                if (obj["return"] && obj["return"].doc) {
+                    retur = "&nbsp;&nbsp;&nbsp;&nbsp;"+obj["return"].doc;
+                }
+				let docf = "";
+                if (obj.doc) {
+					docf = ' title="'+obj.doc+'" class="doc"';
+				}
+                return '<span'+docf+'>'+obj.name+annot+retur+herit+'</span>';
+                
+            }
+			function doc2(obj) {
+				let lien = '';
+				if (docs[obj.name]) {
+					lien = ' class="lien" onclick="montre(\''+obj.name+'\');"';
+				}
+				let doc = "";
+                if (obj.doc) {
+					doc = ' title="'+obj.doc+'" class="doc"';
+				}
+                return '<span'+doc+lien+'>'+obj.name+'</span>';
+                
+            }			
+            function tohtml(obj) {
+                if (obj.type) {
+                    let typ = obj.type;
+                    if (tohtm[typ]) {
+                        return tohtm[typ](obj);    
+                    } else {
+                        return tohtm[typ](obj);   
+                    }
+                } else {
+                    let res = '';
+                    for (let k of Object.keys(obj)) {
+                        res += tohtml(obj[k]);
+                    }
+                    return res;
+                }
+            }
+        </script>
+        <style>
+            body {
+                background-color: black;
+                color: lightgray;
+            }
+            .module>span {
+                color: violet;
+            }
+            .function>span {
+                color: #AAFFAA;
+            }
+            .class>span {
+                color: orange;
+            }
+            .cont {
+				padding-left: 2em;
+			}
+            #doc {
+				padding-left: 2em;
+				padding-top: 1em;
+            }
+            .lien {
+                text-decoration: underline;
+				cursor: pointer;
+            }
+            .doc {
+                display: inline-block;
+            }
+			.doc::first-letter {
+                color: lightgray;
+				font-weight: bold;
+			}
+            param1 {
+                display: inline-block;
+                padding-left: 2em;
+            }
+			
+        </style>
+    </head>
+    <body onload="start();">
+        Modules : <span id="liste"></span>
+        <div id="doc">
+            
+        </div>
+    </body>
+</html>
