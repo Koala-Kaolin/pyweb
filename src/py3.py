@@ -184,8 +184,8 @@ def run(
     handler_class: "classe"=MyHttpHandler,
     port=8000,
     secured: "boolean"=False,
-    certfile="run/certificate.crt",
-    keyfile="run/privateKey.key"
+    certfile="work/certificate.crt",
+    keyfile="work/privateKey.key"
 ) -> "blocking":
     """
     Lancement du serveur
@@ -215,8 +215,8 @@ def run(
                 raise Exception(
                     "openssl req -x509 -sha256 -nodes" +
                     " -days 365 -newkey rsa:2048" +
-                    " -keyout run/privateKey.key" +
-                    " -out run/certificate.crt")
+                    " -keyout work/privateKey.key" +
+                    " -out work/certificate.crt")
         print("Server running on port:"+str(port)+" sécurisé:"+str(secured))
         httpd.serve_forever()
     except OSError as e:

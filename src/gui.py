@@ -153,7 +153,7 @@ class App:
         self.text = ScrolledText(self.tk)
         self.text.pack(expand=1, fill=BOTH, pady=5)
         self.buffer = Buffer(
-            self.text, main=True, stacksize=stacksize, outfile="run/pyweb")
+            self.text, main=True, stacksize=stacksize, outfile="work/pyweb")
         self.tk.geometry('{}x{}'.format(320, 50))
         self.tk.mainloop()
         self.buffer.restore()
