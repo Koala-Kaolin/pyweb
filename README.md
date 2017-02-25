@@ -1,8 +1,6 @@
 # pyweb
 Framework for Python HTTP server
 
-## Tutorial
-
 ## Install
 
 Build pyweb.pyz and update documentation :
@@ -17,6 +15,8 @@ Start the serveur :
 or
 `python3 ./pyweb.pyz <script_directory> <module_name_1> ... <module_name_N>`
 
+Default tests URL : [http://localhost:8080/testlib.html](http://localhost:8080/testlib.html)
+
 ## Log files
 
 Two files recreated after each launch:
@@ -25,6 +25,12 @@ Two files recreated after each launch:
 
 
 ## Getting started
+
+Edit file lab.py as needed.
+This python script is dynamicly reloaded.
+
+
+## Tutorial
 
 ### URL parameters
 
