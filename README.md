@@ -1,7 +1,28 @@
 # pyweb
 Framework for Python HTTP server
 
-## Titorial
+## Tutorial
+
+## Install
+
+Build pyweb.pyz and update documentation :
+`make pack`
+
+Generate a SSL pair of keys :
+`make ssl`
+creates run/certificate.crt and run/privateKey.key
+
+Start the serveur :
+`make start`
+or
+`python3 ./pyweb.pyz <script_directory> <module_name_1> ... <module_name_N>`
+
+## Log files
+
+Two files recreated after each launch:
+- `sys.stdin` is redirected to run/pyweb.err
+- `sys.stdout` is redirected to pyweb.log
+
 
 ## Getting started
 
