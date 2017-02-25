@@ -239,7 +239,7 @@ def parcours(
 
 
 if __name__ == "__main__":
-    mods = [e[:-3] for e in os.listdir(".") if e.endswith(".py")]
+    mods = [e[:-3] for e in os.listdir("src") if e.endswith(".py")]
 
     with open("doc/%s_doc.js" % "index", "w") as f:
         f.write("var docs = {};\n")

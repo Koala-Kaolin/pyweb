@@ -11,8 +11,6 @@ import threading
 import sys
 import time
 
-import lab
-
 
 class Surveillant (threading.Thread):
     """
@@ -46,7 +44,7 @@ class Surveillant (threading.Thread):
                     # Chargement si nécessaire
                     if f[:-3] in sys.modules.keys():
                         importlib.reload(__import__(f[:-3]))
-                        print(f)
+                        print("module %s reloaded" % f)
             self.heures[f] = mtim
 
     def lit(self):
@@ -63,6 +61,7 @@ if __name__ == "__main__":
     surv = Surveillant()
     surv.start()
     try:
+        import lab
         lab.start(True)
     except:
         surv.isactive = False

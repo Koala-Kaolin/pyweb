@@ -1,10 +1,10 @@
 
 ifeq ($(OS),Windows_NT)
-    echo=@echo
-    python=python
+	echo=@echo
+	python=python
 else
-    echo=echo
-    python=python3
+	echo=echo
+	python=python3
 endif
 
 help:
@@ -19,7 +19,7 @@ help:
     ssl    génaration des certificats"
 
 start:
-	$(python) pyweb.pyz
+	$(python) pyweb.pyz . lab
 
 pack: _docu_
 	mkdir -p run
@@ -37,6 +37,7 @@ recup:
 _docu_:
 	pep8 .
 	$(python) src/doc.py
+	rm -rf src/__pycache__ ./__pycache__
 
 ssl:
 	openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout run/privateKey.key -out run/certificate.crt

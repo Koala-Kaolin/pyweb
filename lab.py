@@ -2,7 +2,7 @@
 
 
 """
-Bac à sable.
+Sandbox
 """
 
 import os
@@ -10,13 +10,14 @@ import json
 import random
 
 from doc import protect
-from py3 import run, finish
+from py3 import run
+
 from iframe import writeMessage, readMessage, websocket_headers
 from web import instanciate_core, websocket
-
 from tools import answer, read_cookie, write_cookie, tobytes, readfile
 
 
+print("Le module lab a été chargé")
 os.chdir(os.getcwd())
 
 www_dir = "./www"
@@ -263,23 +264,6 @@ def defaulthandler(headers, params):
     return answer(code=509)
 
 
-def start(secured=False, port=8080, test=False, chemin_js="www/test.js"):
-    """
-    @param secured si https sinon http
-    @param port port
-    @param test si test à générer
-    @param chemin_js chemin du fichier js de test
-    """
-    core.prepare_test(test=test, chemin_js=chemin_js)
-    run(secured=secured, port=port, core=core)
-
-
-def stop():
-    """
-    Arrêt du serveur
-    """
-    finish()
-
-
 if __name__ == "__main__":
-    start()
+    core.prepare_test(test=False, chemin_js="www/test.js")
+    run(secured=False, port=8080, core=core)

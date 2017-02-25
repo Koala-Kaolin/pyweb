@@ -6,12 +6,45 @@ Interface graphique de pyweb
 
 import sys
 import threading
+import importlib
 
 from tkinter import *
 from tkinter.scrolledtext import *
 
 from reloader import Surveillant
-import lab
+
+from py3 import run, finish
+from web import instanciate_core
+
+
+if len(sys.argv) < 2:
+    print(
+        """Arguments:
+        script_directory
+        modules_names_to_be_loaded""")
+
+sys.path.append(sys.argv[1:])
+core = instanciate_core()
+
+
+def start(secured=False, port=8080, test=False, chemin_js="www/test.js"):
+    """
+    @param secured si https sinon http
+    @param port port
+    @param test si test à générer
+    @param chemin_js chemin du fichier js de test
+    """
+    for modname in sys.argv[2:]:
+        __import__(modname)
+    core.prepare_test(test=test, chemin_js=chemin_js)
+    run(secured=secured, port=port, core=core)
+
+
+def stop():
+    """
+    Arrêt du serveur
+    """
+    finish()
 
 
 class Buffer:
@@ -131,7 +164,7 @@ class App:
             self.surv.start()
             try:
                 def dem():
-                    lab.start(
+                    start(
                         secured=self.secuv.get() == 1,
                         port=int(self.portv.get()),
                         test=self.testv.get(),
@@ -147,7 +180,7 @@ class App:
         """
         if self.surv is not None and self.surv.isactive:
             self.surv.isactive = False
-            lab.stop()
+            stop()
             self.surv = None
 
     def cmd_purge(self):
