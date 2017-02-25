@@ -7,6 +7,7 @@ Interface graphique de pyweb
 import sys
 import threading
 import importlib
+import argparse
 
 from reloader import Surveillant
 from py3 import run, finish
@@ -114,11 +115,13 @@ class App:
     """
     Application tkinter de Pyweb
     """
-    def __init__(self, stacksize=1000):
+    def __init__(self, config, stacksize=1000):
         """
         Constructeur
+        @param config read arguments
         @param stacksize taille max. de la stacktrace
         """
+        self.testfile = config.testfile
         self.surv = None
         self.tk = Tk()
         self.tk.title("Pyweb server")
@@ -127,13 +130,17 @@ class App:
         self.portl = Label(self.top, text="Port")
         self.portl.pack(side=LEFT, padx=5)
         self.portv = StringVar()
-        self.portv.set("8080")
+        self.portv.set(config.port)
         self.port = Entry(self.top, text=self.portv, width=6)
         self.port.pack(side=LEFT, padx=5)
         self.secuv = IntVar()
+        if config.secured:
+            self.secuv.set(1)
         self.secu = Checkbutton(self.top, text="secured", variable=self.secuv)
         self.secu.pack(side=LEFT, padx=5)
         self.testv = IntVar()
+        if config.testing:
+            self.testv.set(1)
         self.test = Checkbutton(self.top, text="test", variable=self.testv)
         self.test.pack(side=LEFT, padx=5)
         self.start = Button(self.top, text="start", command=self.cmd_start)
@@ -165,7 +172,7 @@ class App:
                         secured=self.secuv.get() == 1,
                         port=int(self.portv.get()),
                         test=self.testv.get(),
-                        chemin_js="www/test.js")
+                        chemin_js=self.testfile)
                 threading.Thread(target=dem).start()
             except Exception as e:
                 print("Exception au lancement du serveur", e)
@@ -187,25 +194,56 @@ class App:
         self.buffer.reset()
 
 
+class ConfigArgs:
+    """
+    Class for parameters reading
+    """
+    pass
+
+
 def main():
     """
     Main function
     """
     global modules
-    if len(sys.argv) < 2:
-        print(
-            """Arguments:
-            script_directory
-            modules_names_to_be_loaded""")
+
+    parser = argparse.ArgumentParser(description='Optional app description')
+    parser.add_argument(
+        '-port', type=int, nargs='?',
+        default=8080, help='port')
+    parser.add_argument(
+        '-nogui', action='store_true',
+        default=False, help='without gui')
+    parser.add_argument(
+        '-secured', action='store_true',
+        default=False, help='secured')
+    parser.add_argument(
+        '-testing', action='store_true',
+        default=False, help='with tests')
+    parser.add_argument(
+        '-add', type=str, nargs='+',
+        default=["."], help='directory')
+    parser.add_argument(
+        '-m', type=str, nargs='+',
+        default=["lab"], help='module for actions')
+    parser.add_argument(
+        '-testfile', type=str, nargs='?',
+        default="www/test.js", help='javascript test file')
+    args = ConfigArgs()
+    parser.parse_args(namespace=args)
+
+    for padd in args.add:
+        sys.path.append(padd)
+    modules = args.m
+    if error is None and not args.nogui:
+        App(args, stacksize=1)
     else:
-        sys.path.append(sys.argv[1])
-        modules = sys.argv[2:]
-        if error is None:
-            App(stacksize=1)
-        else:
+        if error is not None:
             print(error)
-            print("Lancement sans GUI")
-            start()
+        print("!!! Running out from pyweb GUI")
+        start(
+            secured=args.secured, port=args.port,
+            test=args.testing, chemin_js=args.testfile)
 
 
 if __name__ == "__main__":

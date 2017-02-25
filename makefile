@@ -19,7 +19,7 @@ help:
     ssl    génaration des certificats"
 
 start:
-	$(python) pyweb.pyz . lab
+	$(python) pyweb.pyz
 
 pack: _docu_
 	mkdir -p run
