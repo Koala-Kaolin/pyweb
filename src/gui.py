@@ -8,23 +8,19 @@ import sys
 import threading
 import importlib
 
-from tkinter import *
-from tkinter.scrolledtext import *
-
 from reloader import Surveillant
-
 from py3 import run, finish
 from web import instanciate_core
 
 
-if len(sys.argv) < 2:
-    print(
-        """Arguments:
-        script_directory
-        modules_names_to_be_loaded""")
-
-sys.path.append(sys.argv[1:])
+modules = []
 core = instanciate_core()
+error = None
+try:
+    from tkinter import *
+    from tkinter.scrolledtext import *
+except Exception as ex:
+    error = ex
 
 
 def start(secured=False, port=8080, test=False, chemin_js="www/test.js"):
@@ -34,7 +30,8 @@ def start(secured=False, port=8080, test=False, chemin_js="www/test.js"):
     @param test si test à générer
     @param chemin_js chemin du fichier js de test
     """
-    for modname in sys.argv[2:]:
+    global modules
+    for modname in modules:
         __import__(modname)
     core.prepare_test(test=test, chemin_js=chemin_js)
     run(secured=secured, port=port, core=core)
@@ -189,5 +186,27 @@ class App:
         """
         self.buffer.reset()
 
+
+def main():
+    """
+    Main function
+    """
+    global modules
+    if len(sys.argv) < 2:
+        print(
+            """Arguments:
+            script_directory
+            modules_names_to_be_loaded""")
+    else:
+        sys.path.append(sys.argv[1])
+        modules = sys.argv[2:]
+        if error is None:
+            App(stacksize=1)
+        else:
+            print(error)
+            print("Lancement sans GUI")
+            start()
+
+
 if __name__ == "__main__":
-    App(stacksize=1)
+    main()

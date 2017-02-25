@@ -64,3 +64,50 @@ def action_test_unique(
     """
 return answer(200, body="<html>Hello %s</html>" % ptexte, mime="text/html")
 ```
+
+## Project structure
+
+Your Pyweb server actions:
+
+ - ./lab.py
+
+Tests directory:
+
+ - ./www/test.js (generated)
+ - ./www/testlib.js
+ - ./www/testlib.css
+ - ./www/testlib.html
+
+Documentation:
+
+ - ./doc/pyweb.md
+ - ./doc/index_doc.js (generated)
+ - ./doc/pyweb_modules.dot and ./doc/pyweb_modules.svg
+ - ./doc/model.dia and ./doc/model.svg
+ - ./doc/index.html
+
+Archive ./pyweb.pyz sources files:
+
+ - ./src/mapper.py
+ - ./src/tools.py
+ - ./src/gui.py
+ - ./src/iframe.py
+ - ./src/py3.py
+ - ./src/web.py
+ - ./src/reloader.py
+ - ./src/doc.py
+ - ./src/clihttp.py
+
+From work directory:
+
+ - ./run/certificate.crt (generated)
+ - ./run/privateKey.key (generated)
+ - ./run/pyweb.err
+ - ./run/pyweb.log
+
+Others:
+
+ - ./README.md
+ - ./LICENSE
+ - ./makefile
+

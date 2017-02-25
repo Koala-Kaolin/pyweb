@@ -23,7 +23,7 @@ start:
 
 pack: _docu_
 	mkdir -p run
-	$(python) -m zipapp src -m "gui:App" -o pyweb.pyz  # -p $(python)
+	$(python) -m zipapp src -m "gui:main" -o pyweb.pyz  # -p $(python)
 
 commit:
 	git commit -a -m '"'`date +%s`'"'
