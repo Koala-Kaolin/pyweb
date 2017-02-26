@@ -1,16 +1,21 @@
 # pyweb
 Framework for Python HTTP server
 
+## Dependencies
+
+- pep8: `sudo apt-get install pep8`
+- tkinter for python3: `sudo apt-get install python3-tk`
+
 ## Install
 
-Build pyweb.pyz and update documentation :
+Build pyweb.pyz and update documentation:
 `make pack`
 
-Generate a SSL pair of keys :
+Generate a SSL pair of keys:
 `make ssl`
 creates run/certificate.crt and run/privateKey.key
 
-Start the serveur :
+Start the serveur:
 `make start`
 or
 `python3 ./pyweb.pyz <script_directory> <module_name_1> ... <module_name_N>`
