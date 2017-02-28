@@ -258,13 +258,16 @@ class Core():
             f.write(";\n")
 
 
-def instanciate_core():
+def instanciate_core(reset=False):
     """
+    @param reset indicateur de la remise à zéro des actions
     @return instance de Core
     """
     global core
     if core is None:
         core = Core()
+    if reset:
+        core.reset()
     return core
 
 

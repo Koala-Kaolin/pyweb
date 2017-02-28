@@ -1,7 +1,8 @@
 # Pyweb
 work
 *pyz
-
+doc/index_doc.js
+www/test.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

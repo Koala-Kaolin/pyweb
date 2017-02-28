@@ -8,11 +8,15 @@ import sys
 import threading
 import importlib
 import argparse
+import os
 
 from reloader import Surveillant
 from py3 import run, finish
 from web import instanciate_core
 
+
+CST_WORKDIR = "work"
+CST_WWWDIR = "www"
 
 modules = []
 core = instanciate_core()
@@ -24,12 +28,17 @@ except Exception as ex:
     error = ex
 
 
-def start(secured=False, port=8080, test=False, chemin_js="www/test.js"):
+def start(
+        secured=False, port=8080, test=False, chemin_js=CST_WWWDIR+"/test.js",
+        certfile=CST_WORKDIR+"/certificate.crt",
+        keyfile=CST_WORKDIR+"/privateKey.key"):
     """
     @param secured si https sinon http
     @param port port
     @param test si test à générer
     @param chemin_js chemin du fichier js de test
+    @param certfile certificat
+    @param keyfile clé privée
     """
     global modules
     for modname in modules:
@@ -121,6 +130,8 @@ class App:
         @param config read arguments
         @param stacksize taille max. de la stacktrace
         """
+        self.certfile = config.certfile
+        self.keyfile = config.keyfile
         self.testfile = config.testfile
         self.surv = None
         self.tk = Tk()
@@ -134,9 +145,13 @@ class App:
         self.port = Entry(self.top, text=self.portv, width=6)
         self.port.pack(side=LEFT, padx=5)
         self.secuv = IntVar()
-        if config.secured:
-            self.secuv.set(1)
-        self.secu = Checkbutton(self.top, text="secured", variable=self.secuv)
+        if os.path.exists(self.certfile) and os.path.exists(self.keyfile):
+            self.secu = Checkbutton(
+                self.top, text="secured", variable=self.secuv)
+            if config.secured:
+                self.secuv.set(1)
+        else:
+            self.secu = Checkbutton(self.top, text="secured", bg="red")
         self.secu.pack(side=LEFT, padx=5)
         self.testv = IntVar()
         if config.testing:
@@ -153,7 +168,8 @@ class App:
         self.text = ScrolledText(self.tk)
         self.text.pack(expand=1, fill=BOTH, pady=5)
         self.buffer = Buffer(
-            self.text, main=True, stacksize=stacksize, outfile="work/pyweb")
+            self.text, main=True, stacksize=stacksize,
+            outfile=CST_WORKDIR+"/pyweb")
         self.tk.geometry('{}x{}'.format(320, 50))
         self.tk.mainloop()
         self.buffer.restore()
@@ -172,7 +188,9 @@ class App:
                         secured=self.secuv.get() == 1,
                         port=int(self.portv.get()),
                         test=self.testv.get(),
-                        chemin_js=self.testfile)
+                        chemin_js=self.testfile,
+                        certfile=self.certfile,
+                        keyfile=self.keyfile)
                 threading.Thread(target=dem).start()
             except Exception as e:
                 print("Exception au lancement du serveur", e)
@@ -209,32 +227,35 @@ def main():
 
     parser = argparse.ArgumentParser(description='Optional app description')
     parser.add_argument(
-        '-port', type=int, nargs='?',
-        default=8080, help='port')
+        '-nogui', action='store_true', default=False, help='without gui')
     parser.add_argument(
-        '-nogui', action='store_true',
-        default=False, help='without gui')
+        '-port', type=int, nargs='?', default=8080, help='port')
     parser.add_argument(
-        '-secured', action='store_true',
-        default=False, help='secured')
+        '-add', type=str, nargs='+', default=["."], help='directory')
     parser.add_argument(
-        '-testing', action='store_true',
-        default=False, help='with tests')
+        '-m', type=str, nargs='+', default=["lab"], help='module for actions')
     parser.add_argument(
-        '-add', type=str, nargs='+',
-        default=["."], help='directory')
-    parser.add_argument(
-        '-m', type=str, nargs='+',
-        default=["lab"], help='module for actions')
+        '-testing', action='store_true', default=False, help='with tests')
     parser.add_argument(
         '-testfile', type=str, nargs='?',
-        default="www/test.js", help='javascript test file')
+        default=CST_WWWDIR+"/test.js", help='javascript test file')
+    parser.add_argument(
+        '-secured', action='store_true', default=False, help='secured')
+    parser.add_argument(
+        '-certfile', type=str, nargs='?',
+        default=CST_WORKDIR+"/certificate.crt", help='certificate path')
+    parser.add_argument(
+        '-keyfile', type=str, nargs='?',
+        default=CST_WORKDIR+"/privateKey.key", help='private key file')
+
     args = ConfigArgs()
     parser.parse_args(namespace=args)
 
     for padd in args.add:
         sys.path.append(padd)
     modules = args.m
+    os.makedirs(CST_WORKDIR, exist_ok=True)
+    os.makedirs(os.path.dirname(args.testfile), exist_ok=True)
     if error is None and not args.nogui:
         App(args, stacksize=1)
     else:
@@ -243,7 +264,8 @@ def main():
         print("!!! Running out from pyweb GUI")
         start(
             secured=args.secured, port=args.port,
-            test=args.testing, chemin_js=args.testfile)
+            test=args.testing, chemin_js=args.testfile,
+            certfile=args.certfile, keyfile=args.keyfile)
 
 
 if __name__ == "__main__":

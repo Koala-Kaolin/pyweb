@@ -11,9 +11,8 @@ import random
 
 from doc import protect
 from py3 import run
-
-from iframe import writeMessage, readMessage, websocket_headers
 from web import instanciate_core, websocket
+
 from tools import answer, read_cookie, write_cookie, tobytes, readfile
 
 
@@ -22,8 +21,7 @@ os.chdir(os.getcwd())
 
 www_dir = "./www"
 
-core = instanciate_core()
-core.reset()
+core = instanciate_core(reset=True)
 
 
 def echo(par, pre=True):
