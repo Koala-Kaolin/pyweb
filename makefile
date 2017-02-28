@@ -44,7 +44,7 @@ test:
 	$(python) pyweb.pyz -testing -nogui
 
 install: document
-	$(python) -m zipapp src -m "gui:main" -o pyweb.pyz  # -p $(python)
+	$(python) -m zipapp src -o pyweb.pyz
 	$(mkdirforce) work
 	$(echo) "pyweb.pyz $(GREEN) generated $(NC)"
 

@@ -244,7 +244,7 @@ if __name__ == "__main__":
         sys.path.append(d1)
     mods = [
         e[:-3] for dd in sys.argv[1:]
-        for e in os.listdir(dd) if e.endswith(".py")]
+        for e in os.listdir(dd) if e.endswith(".py") and e != "__main__.py"]
     with open("doc/%s_doc.js" % "index", "w") as f:
         f.write("var docs = {};\n")
         for smod in mods:
