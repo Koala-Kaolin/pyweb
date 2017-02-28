@@ -1,0 +1,10 @@
+#!/bin/sh
+
+python3 $@ 2>&1 | tee $$.output
+
+if [ "$?" != "0" ]
+then
+    cat $$.ouput
+fi
+
+rm -f $$.output
