@@ -30,7 +30,7 @@ endif
 help:
 	$(echo) "Commands list:"
 	$(echo) "   $(ORANGE)help              $(NC)to display this message"
-	$(echo) "   $(ORANGE)install           $(NC)to generate documentation en pyweb.pyz"
+	$(echo) "   $(ORANGE)install           $(NC)to generate documentation ($(ORANGE)document$(NC)) and pyweb.pyz ($(ORANGE)package$(NC))"
 	$(echo) "   $(ORANGE)run [args="..."]    $(NC)to start the server"
 	$(echo) "   $(ORANGE)test              $(NC)to start the server"
 	$(echo) "   $(ORANGE)ssl               $(NC)to build certificates"
@@ -43,16 +43,15 @@ test:
 	$(echo) "To get more options: $(ORANGE)make run args=\"-h\"$(NC)"
 	$(python) pyweb.pyz -testing -nogui
 
-install: document
-	$(python) -m zipapp src -o pyweb.pyz
-	$(mkdirforce) work
-	$(echo) "pyweb.pyz $(GREEN) generated $(NC)"
+install: document package
 
 ssl:
 	openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout work/privateKey.key -out work/certificate.crt
 
-
-# Sub goals
+package:
+	$(python) -m zipapp src -o pyweb.pyz
+	$(mkdirforce) work
+	$(echo) "pyweb.pyz $(GREEN) generated $(NC)"
 
 document:
 	$(pep8) .
@@ -60,24 +59,4 @@ document:
 	$(python) src/doc.py . src
 	$(forcedel) src/__pycache__ ./__pycache__
 	@$(echo) "pyweb $(GREEN) documented $(NC)"
-
-commit:
-	git commit -a -m '"'`date +%s`'"'
-
-save:
-	cp -r ./* /media/narf/F32/python
-
-recup:
-	cp -fr /media/narf/F32/python/* .
-
-# ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-# ------
-# cat ~/.ssh/id_rsa.pub
-# ssh -T git@github.com
-# git clone git@github.com:Koala-Kaolin/pyweb.git
-# ------
-# git remote -v
-# git remote set-url origin https://github.com/Koala-Kaolin/pyweb.git
-# ------
-# git config -l
 
