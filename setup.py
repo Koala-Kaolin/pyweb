@@ -57,7 +57,7 @@ def cmd_document(*args):
     """
     execute("pep8", ".", "src")
     execute(interpreter, "-B", "src/doc.py", ".", "src")
-    print("%s documebted" % module_name)
+    print("%s documented" % module_name)
 
 
 def cmd_ssl(*args):
@@ -92,7 +92,7 @@ commands = {
 
 def usage():
     "Help"
-    print ("Available commands: \n\t%s" % "\n\t".join(list(commands.keys())))
+    print("Available commands: \n\t%s" % "\n\t".join(list(commands.keys())))
     sys.exit(-1)
 
 
