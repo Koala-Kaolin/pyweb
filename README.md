@@ -14,17 +14,13 @@ HTTP actions and WebSocket handlers are `hot reload`ed without killing running p
 ### Prerequisites
 This Framework needs Python 3+.
 
-There are also optionnal dependencies :
-- Documentation needs `pep8` ```bash sudo apt-get install pep8``` (for documentation only)
-- A default GUI is provided for `tkinter` : ```bash sudo apt-get install python3-tk``` (for GUI only)
-
+To run the GUI, tkinter is needed.
 
 ### Install
-The installation is made of code documentation and packaging.
+`chmod +x ./setup.py`
+`./setup.py install`
 
-`./setup.py install` means `./setup.py document` and `./setup.py package`
-
-It generates a `pyweb.pyz` in the root directory.
+This command generates a `pyweb.pyz`.
 
 ### Certificate generation
 Generate a SSL pair of keys:

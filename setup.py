@@ -8,16 +8,11 @@ import os
 import sys
 import zipapp
 
+
 module_name = "pyweb.pyz"
-interpreter = "python3"
-
-
-is_linux = False
-is_windows = False
+interpreter = "python"
 if os.name == "posix":
-    is_linux = True
-else:
-    is_windows = True
+    interpreter = "python3"
 
 
 def execute(*args):
@@ -31,80 +26,59 @@ def execute(*args):
         sys.exit(ret)
 
 
-def cmd_install(*args):
+def cmd_execute(*args):
     """
-    Document and generate package
-    @param *args parameters
-    """
-    cmd_document(*args)
-    cmd_package(*args)
-
-
-def cmd_package(*args):
-    """
+    Document package
     Generate package
     @param *args parameters
     """
-    zipapp.create_archive("src", target=module_name)
-    os.makedirs("work", exist_ok=True)
-    print("%s generated" % module_name)
-
-
-def cmd_document(*args):
-    """
-    Document package
-    @param *args parameters
-    """
-    execute("pep8", ".", "src")
-    execute(interpreter, "-B", "src/doc.py", ".", "src")
-    print("%s documented" % module_name)
-
-
-def cmd_ssl(*args):
-    """
-    Generate a certificate
-    @param *args parameters
-    """
-    execute(
-        "openssl", "req", "-x509", "-sha256", "-nodes", "-days", "365",
-        "-newkey", "rsa:2048",
-        "-keyout", "work/privateKey.key", "-out", "work/certificate.crt")
-
-
-def cmd_run(args):
-    """
-    Run the server
-    @param args parameters
-    """
-    pars = [interpreter, module_name]
-    pars.extend(args)
-    execute(*pars)
-
-
-commands = {
-    "install": cmd_install,
-    "package":  cmd_package,
-    "document":  cmd_document,
-    "ssl": cmd_ssl,
-    "run": cmd_run
-}
-
-
-def usage():
-    "Help"
-    print("Available commands: \n\t%s" % "\n\t".join(list(commands.keys())))
-    sys.exit(-1)
+    args = list(*args)
+    pars = None
+    if "run" in args:
+        pars = [interpreter, module_name]
+        pars.extend(args[args.index("run") + 1:])
+        args = args[:args.index("run")]
+    if len([
+            arg for arg in args
+            if arg not in ["-h", "pep8", "doc", "install", "ssl"]]) > 0:
+        raise Exception(
+            "Command not in: [pep8] [doc] [install] [ssl] [run [args]]")
+    if "-h" in args:
+        print("arguments [no] [pep8] [doc]")
+    if "pep8" in args:
+        execute("pep8", ".", "src")
+        print("%s check styled" % module_name)
+    if "doc" in args:
+        execute(interpreter, "-B", "src/doc.py", ".", "src")
+        print("%s documented" % module_name)
+    if "install" in args:
+        zipapp.create_archive("src", target=module_name)
+        os.makedirs("work", exist_ok=True)
+        print("%s generated" % module_name)
+    if "ssl" in args:
+        execute(
+            "openssl", "req", "-x509", "-sha256", "-nodes", "-days", "365",
+            "-newkey", "rsa:2048",
+            "-keyout", "work/privateKey.key",
+            "-out", "work/certificate.crt")
+    if pars is not None:
+        execute(*pars)
 
 
 def main_function():
     "Main function"
     if len(sys.argv) < 2:
-        usage()
-    cmd = sys.argv[1]
-    if cmd not in commands:
-        usage()
+        print("Available commands: [pep8] [doc] [install] [ssl] [run [args]]")
+        print("Empty line to quit")
+        print("================")
+        line = sys.stdin.readline()
+        while line != "\n":
+            cmd_execute(line[:-1].split(" "))
+            line = sys.stdin.readline()
+        print("Bye!")
+        print("================")
     else:
-        commands[cmd](sys.argv[2:])
+        cmd_execute(sys.argv[1:])
 
 
 if __name__ == "__main__":

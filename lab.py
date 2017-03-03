@@ -16,7 +16,7 @@ from web import instanciate_core, websocket
 from tools import answer, read_cookie, write_cookie, tobytes, readfile
 
 
-print("Le module lab a été chargé")
+print("lab.py reloaded ...")
 os.chdir(os.getcwd())
 
 www_dir = "./www"
