@@ -3,6 +3,7 @@ work
 *.pyz
 doc/index_doc.js
 www/test.js
+pyweb.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

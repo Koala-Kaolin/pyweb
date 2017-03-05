@@ -130,6 +130,7 @@ class App:
         @param config read arguments
         @param stacksize taille max. de la stacktrace
         """
+        self.config = config
         self.certfile = config.certfile
         self.keyfile = config.keyfile
         self.testfile = config.testfile
@@ -175,6 +176,14 @@ class App:
         self.buffer.restore()
         self.cmd_stop()
 
+    def inject(self):
+        """
+        Reinject properties
+        """
+        self.config.testing = self.testv.get() == 1
+        self.config.secured = self.secuv.get() == 1
+        self.config.port = self.portv.get()
+
     def cmd_start(self):
         """
         Démarrage du serveur
@@ -204,6 +213,7 @@ class App:
             self.surv.isactive = False
             stop()
             self.surv = None
+        self.inject()
 
     def cmd_purge(self):
         """
@@ -225,28 +235,51 @@ def main():
     """
     global modules
 
+    conf = {
+        "port": 8080,
+        "add": ["."],
+        "m": ["lab"],
+        "testfile": CST_WWWDIR+"/test.js",
+        "certfile": CST_WORKDIR+"/certificate.crt",
+        "keyfile": CST_WORKDIR+"/privateKey.key",
+        "secured": False,
+        "testing": False,
+        "nogui": False
+    }
+
+    if os.path.exists("pyweb.cfg"):
+        with open("pyweb.cfg") as f:
+            lines = f.read().split('\n')
+            for line in lines:
+                if "=" in line:
+                    conf[line[:line.index("=")]] = eval(line[line.index("=")+1:])
+    print(conf)
+
     parser = argparse.ArgumentParser(description='Optional app description')
     parser.add_argument(
-        '-nogui', action='store_true', default=False, help='without gui')
+        '-nogui', action='store_true',
+        default=conf["nogui"], help='without gui')
     parser.add_argument(
-        '-port', type=int, nargs='?', default=8080, help='port')
+        '-port', type=int, nargs='?', default=conf["port"], help='port')
     parser.add_argument(
-        '-add', type=str, nargs='+', default=["."], help='directory')
+        '-add', type=str, nargs='+', default=conf["add"], help='directory')
     parser.add_argument(
-        '-m', type=str, nargs='+', default=["lab"], help='module for actions')
+        '-m', type=str, nargs='+', default=conf["m"], help='module for actions')
     parser.add_argument(
-        '-testing', action='store_true', default=False, help='with tests')
+        '-testing', action='store_true',
+        default=conf["testing"], help='with tests')
     parser.add_argument(
         '-testfile', type=str, nargs='?',
-        default=CST_WWWDIR+"/test.js", help='javascript test file')
+        default=conf["testfile"], help='javascript test file')
     parser.add_argument(
-        '-secured', action='store_true', default=False, help='secured')
+        '-secured', action='store_true',
+        default=conf["secured"], help='secured')
     parser.add_argument(
         '-certfile', type=str, nargs='?',
-        default=CST_WORKDIR+"/certificate.crt", help='certificate path')
+        default=conf["certfile"], help='certificate path')
     parser.add_argument(
         '-keyfile', type=str, nargs='?',
-        default=CST_WORKDIR+"/privateKey.key", help='private key file')
+        default=conf["keyfile"], help='private key file')
 
     args = ConfigArgs()
     parser.parse_args(namespace=args)
@@ -267,6 +300,15 @@ def main():
             test=args.testing, chemin_js=args.testfile,
             certfile=args.certfile, keyfile=args.keyfile)
 
+    with open("pyweb.cfg", "w") as f:
+        print(args.port)
+        f.write((
+            "port={port}\nadd={add}\nm={m}\ncertfile=\"{certfile}\"\n"+
+            "keyfile=\"{keyfile}\"\ntestfile=\"{testfile}\"\n"+
+            "nogui={nogui}\ntesting={testing}\nsecured={secured}").format(
+                port=args.port, add=args.add, m=args.m, certfile=args.certfile,
+                keyfile=args.keyfile, testfile=args.testfile,
+                nogui=args.nogui, testing=args.testing, secured=args.secured))
 
 if __name__ == "__main__":
     main()

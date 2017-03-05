@@ -40,9 +40,9 @@ def cmd_execute(*args):
         args = args[:args.index("run")]
     if len([
             arg for arg in args
-            if arg not in ["-h", "pep8", "doc", "install", "ssl"]]) > 0:
+            if arg not in ["-h", "pep8", "doc", "build", "ssl"]]) > 0:
         raise Exception(
-            "Command not in: [pep8] [doc] [install] [ssl] [run [args]]")
+            "Command not in: [pep8] [doc] [build] [ssl] [run [args]]")
     if "-h" in args:
         print("arguments [no] [pep8] [doc]")
     if "pep8" in args:
@@ -51,7 +51,7 @@ def cmd_execute(*args):
     if "doc" in args:
         execute(interpreter, "-B", "src/doc.py", ".", "src")
         print("%s documented" % module_name)
-    if "install" in args:
+    if "build" in args:
         zipapp.create_archive("src", target=module_name)
         os.makedirs("work", exist_ok=True)
         print("%s generated" % module_name)
@@ -68,7 +68,7 @@ def cmd_execute(*args):
 def main_function():
     "Main function"
     if len(sys.argv) < 2:
-        print("Available commands: [pep8] [doc] [install] [ssl] [run [args]]")
+        print("Available commands: [pep8] [doc] [build] [ssl] [run [args]]")
         print("Empty line to quit")
         print("================")
         line = sys.stdin.readline()

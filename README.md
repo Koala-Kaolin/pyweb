@@ -18,7 +18,7 @@ To run the GUI, tkinter is needed.
 
 ### Install
 `chmod +x ./setup.py`
-`./setup.py install`
+`./setup.py build`
 
 This command generates a `pyweb.pyz`.
 
